@@ -1,0 +1,46 @@
+<et-home></et-home>
+<div class="container-fluid">
+    <div class="container">
+        
+    </div>
+    <div class="container nav">
+        <button [routerLink]="['/expense/new']" class="btn btn-primary">New Expense</button>
+    </div>
+    <div class="content-heading container">
+      <div class="row">
+        <div class="col-xs-12 col-lg-6">
+            <span style="color:red"   *ngIf="errorMessage">{{errorMessage}}</span>
+            <span style="color:green" *ngIf="successMessage">{{successMessage}}</span>
+        </div>
+      </div>
+      <div class="row" *ngIf="isAdmin">
+        <div class="col-xs-12 col-lg-6">
+            <label for="filterUsername">Username</label>
+            <input type="text" id="filterUsername" [(ngModel)]="filterUsername"/>       
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-lg-6">
+          <label for="filterDate">Filter by Date</label>: 
+          <input type="text" id="filterDate" [(ngModel)]="filterDate"/>
+          <button class="clearfix btn btn-default" (click)="refreshList()">Filter</button>
+        </div>
+      </div> 
+      <div class="row" *ngFor="let expense of expenses;let i = index">
+        <div class="col-xs-6 col-lg-2">
+		  <div class="pull-left">
+		    <button [routerLink]="['/expense', expense.id, 'edit']" class="clearfix btn btn-default">Edit</button>
+			<button class="clearfix btn btn-danger" (click)="deleteExpense(expense.id)">Delete</button>
+          </div>
+        </div>
+        <div class="col-xs-6 col-lg-10">
+		  <et-expense-item [expense]="expense" [expenseId]="expense.id"></et-expense-item>
+		</div>
+		</div>
+	  </div>
+	  <div class="row" *ngIf="expenses.length == 0">
+		  <div class="col-xs-12 col-lg-6">
+		      No expenses for this date
+		  </div>
+	  </div>
+</div>

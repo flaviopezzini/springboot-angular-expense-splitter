@@ -1,0 +1,78 @@
+<et-home></et-home>
+<div class="row" *ngIf="done">
+  <div class="col-xs-12 col-lg-6">
+    Expense stored successfully <a [routerLink]="['/expense']" class="btn">Go to Expenses</a>
+  </div>
+</div>
+<div class="row" *ngIf="!done">
+  <div class="col-xs-12">
+    <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-xs-12">
+          <button type="submit" class="btn btn-success" [disabled]="!expenseForm.valid">Save</button>
+          <a class="btn btn-danger" [routerLink]="['/expense']">Cancel</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-lg-6">
+          <div class="form-group">
+            <label for="name">Date</label>
+            <input
+              type="text"
+              id="date"
+              class="form-control"
+              formControlName="date">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-lg-6">
+          <div class="form-group">
+            <label for="name">Time</label>
+            <input
+              type="text"
+              id="time"
+              class="form-control"
+              formControlName="time">
+          </div>
+        </div>
+      </div>      
+      <div class="row">
+        <div class="col-xs-12 col-lg-6">
+          <div class="form-group">
+            <label for="name">Description</label>
+            <input
+              type="text"
+              id="description"
+              class="form-control"
+              formControlName="description">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-lg-6">
+          <div class="form-group">
+            <label for="name">Amount</label>
+            <input
+              type="text"
+              id="amount"
+              class="form-control"
+              formControlName="amount">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-lg-6">
+          <div class="form-group">
+            <label for="name">Comment</label>
+            <input
+              type="text"
+              id="comment"
+              class="form-control"
+              formControlName="comment">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

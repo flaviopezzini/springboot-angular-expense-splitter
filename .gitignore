@@ -1,0 +1,51 @@
+# Java Generated
+*.class
+!gradle/wrapper/gradle-wrapper.jar
+*.jar
+*.war
+*.ear
+
+# other
+dump.rdb
+
+# gradle
+.gradle/
+bin/
+build/
+npm-debug.log.*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Spring Generated
+.springBeans
+
+# Eclipse Generated
+.classpath
+.project
+.settings/
+.metadata/
+target/
+
+# IntelliJ Generated
+.idea
+
+# Front End Dependency Generated
+frontend/.sass-cache/
+frontend/bower_components/
+frontend/dist/
+frontend/node/
+frontend/node_modules/
+frontend/npm-debug.log
+frontend/.tscache/
+frontend/scss/.tmp/
+frontend/js/lib/
+frontend/typings/
+frontend/coverage/
+dist/

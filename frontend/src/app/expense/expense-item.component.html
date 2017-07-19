@@ -1,0 +1,4 @@
+  <div class="pull-left">
+    <h4 class="list-group-item-heading">{{expense.description}}</h4>
+    <p class="list-group-item-text">{{expense.amount | currency : 'USD':true }} - {{expense.dateTime | date : "MM/dd/yyyy HH:mm" }}</p>
+  </div>

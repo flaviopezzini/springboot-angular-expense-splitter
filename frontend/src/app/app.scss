@@ -1,0 +1,16 @@
+$bg-color: #ffffff;
+$font-color: #000000;
+
+html {
+	margin: 0 auto;
+    background-color: $bg-color;
+}
+
+body {
+    background-color: $bg-color;
+    color: $font-color;
+}
+
+.nav {
+    width: auto;
+}

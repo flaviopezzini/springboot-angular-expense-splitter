@@ -1,0 +1,6 @@
+spring.profiles: default
+demo.security.jwt:
+  tokenExpirationTime: 15 # Number of minutes
+  refreshTokenExpTime: 60 # Minutes
+  tokenIssuer: http://expensesplitter.com
+  tokenSigningKey: xm8EV6Hy5RMFK4EEACIDAwQus

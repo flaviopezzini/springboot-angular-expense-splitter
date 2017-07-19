@@ -1,0 +1,155 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		// spring
+		classpath('org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE')
+		classpath('org.springframework:springloaded:1.2.6.RELEASE')
+	}
+}
+
+plugins {
+	id "com.moowork.node" version "1.2.0"
+}
+
+// gradle wrapper
+task wrapper(type: Wrapper) {
+	gradleVersion = '3.4'
+}
+
+// configure gradle-node-plugin
+node {
+	version = '8.1.4'
+	npmVersion = '5.0.3'
+	download = true
+	workDir = file("${project.projectDir}/frontend/node")
+	nodeModulesDir = file("${project.projectDir}/frontend")
+}
+
+// clean node/node_modules/dist
+task npmClean(type: Delete) {
+	final def webDir = "${rootDir}/frontend"
+	delete "${webDir}/frontend/node"
+	delete "${webDir}/frontend/node_modules"
+	delete "${webDir}/frontend/dist"
+	delete "${webDir}/frontend/coverage"
+	delete "${rootDir}/backend/src/main/resources/public"
+}
+
+// clean task for npm
+
+// build task for npm
+task frontendBuild {}
+frontendBuild.dependsOn(npm_install)
+frontendBuild.dependsOn(npm_run_build)
+
+/*npm_install {
+  args = ['--prefix', './frontend']
+}
+
+npm_run_build {
+  args = ['--prefix', './frontend']
+}*/
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['backend/src/main/java']
+        }
+        resources {
+            srcDirs = ['backend/src/main/resources']
+        }
+    }
+}
+
+processResources {
+    from ('frontend/dist/') {
+        into 'public'
+    }
+}
+
+//copyFiles.dependsOn(frontendBuild);
+compileJava.dependsOn(frontendBuild);
+
+task backendBuild {}
+backendBuild.dependsOn(compileJava)
+backendBuild.dependsOn(jar)
+
+//jar.dependsOn(copyFiles)
+
+repositories {
+	mavenCentral()
+}
+
+eclipse {
+	classpath {
+		 containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
+		 containers('org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8')
+	}
+}
+
+idea {
+    module {
+        inheritOutputDirs = false
+        outputDir = file("${buildDir}/classes/main/")
+    }
+}
+
+jar {
+	baseName = 'expense-splitter'
+	version = '0.0.1'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+configurations {
+	dev
+}
+
+dependencies {
+	// spring
+	compile('org.springframework.boot:spring-boot-starter-web:1.5.2.RELEASE')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa:1.5.2.RELEASE')
+	compile('org.springframework.boot:spring-boot-starter-security:1.5.2.RELEASE')
+	
+	compile('org.apache.commons:commons-lang3:3.3.2')
+	
+	// to make hibernate handle java 8 date and time types correctly
+	// it's marked as deprecated but we need to keep it until
+	// spring boot jpa starts using hibernate 5.2
+	compile('org.hibernate:hibernate-java8:5.1.0.Final')
+	
+	// json web tokens
+    compile ('io.jsonwebtoken:jjwt:0.7.0')
+    
+    compile 'mysql:mysql-connector-java'
+	// google gson
+	compile('com.google.code.gson:gson:2.8.0')
+	// jackson - parsing of java 8 date and time types
+    compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.7')
+    
+
+	// spring dev tools
+	dev('org.springframework.boot:spring-boot-devtools:1.5.2.RELEASE')
+
+	// testing
+	testCompile('org.springframework.boot:spring-boot-starter-test:1.5.2.RELEASE')
+}
+
+// run spring boot app
+bootRun {
+	//addResources = true
+	classpath = sourceSets.main.runtimeClasspath + configurations.dev
+	jvmArgs = ["-Xdebug -agentlib:jdwp=transport=dt_socket,address=8080,server=y,suspend=n"]
+}
+
+// run all task
+task runAll {}
+runAll.dependsOn(bootRun)

@@ -1,0 +1,90 @@
+<et-home></et-home>
+<div class="row" *ngIf="done">
+  <div class="col-xs-12 col-lg-6">
+    User stored successfully <a [routerLink]="['/user']" class="btn">Go to Users</a>
+  </div>
+</div>
+<div class="row" *ngIf="!done">
+  <div class="col-xs-12">
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    
+      <div class="row">
+        <div class="col-xs-12">
+          <button type="submit" class="btn btn-success" [disabled]="!userForm.valid">Save</button>
+          <a class="btn btn-danger" [routerLink]="['/user']">Cancel</a>
+        </div>
+      </div>
+
+      <input
+              type="hidden"
+              id="active"
+              class="form-control"
+              formControlName="active">
+
+      
+      <div class="row">
+        <div class="col-xs-12 col-lg-6">
+          <div class="form-group">
+            <label for="name">Username</label>
+            <input
+              type="email"
+              id="username"
+              class="form-control"
+              formControlName="username">
+          </div>
+        </div>
+      </div>
+      
+      <div class="row" *ngIf="isNew">
+        <div class="col-xs-12 col-lg-6">
+          <div class="form-group">
+            <label for="name">Password</label>
+            <input
+              type="text"
+              id="password"
+              class="form-control"
+              formControlName="password">
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-xs-12 col-lg-6">
+          <div class="form-group">
+			  <div class="checkbox" *ngIf="loggedInIsAdmin">
+			    <label>
+			      <input 
+			        type="checkbox"
+                    id="isAdmin"
+                    class="form-control"
+                    formControlName="isAdmin"> 
+			         Is Admin?
+			    </label>
+			  </div>            
+              <div class="checkbox" *ngIf="loggedInIsAdmin || loggedInIsUserManager">
+                <label>
+                  <input 
+                    type="checkbox"
+                    id="isUserManager"
+                    class="form-control"
+                    formControlName="isUserManager"> 
+                    Is User Manager?
+                </label>
+              </div>            
+              <div class="checkbox">
+                <label>
+                  <input 
+                    type="checkbox"
+                    id="isRegularUser"
+                    class="form-control"
+                    formControlName="isRegularUser"> 
+                    Is Regular User?
+                </label>
+              </div>            
+        </div>
+        </div>
+      </div>
+      
+    </form>
+  </div>
+</div>

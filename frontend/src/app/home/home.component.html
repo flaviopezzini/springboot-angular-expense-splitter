@@ -1,0 +1,15 @@
+<div class="container-fluid" style="margin-bottom: 20px;">
+    <div class="container">
+        <p class="h1 title">Expense Splitter</p>    
+    </div>
+    <div class="container nav">
+    </div>
+    <div class="content-heading container">
+       <div>
+	        <a [routerLink]="['/expense']" class="btn" *ngIf="isAdmin || isRegularUser">Manage Expenses</a>
+	        <a [routerLink]="['/user']" class="btn" *ngIf="isAdmin || isUserManager">Manage Users</a>
+            <a [routerLink]="['/user/editProfile']" class="btn">Edit Profile</a>
+            <a class="btn" href="#" (click)="logout()">Logout</a>
+        </div>
+    </div>
+</div>
