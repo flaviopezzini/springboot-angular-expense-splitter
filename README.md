@@ -1,11 +1,7 @@
-# 
-
-Using the spring-boot-angular2 starter kit from https://github.com/borysn/spring-boot-angular2
-spring boot backend, angular2 frontend with webpack, typescript, sass, bootstrap4, karma, jasmine
-
 ## about
 
 This is an expenses splitter application.
+It's ready to be deployed to Heroku, except for the database configuration.
 
 ## pre-install
 
@@ -31,14 +27,9 @@ There's a file called ddl.sql with the creation queries.
 
 ## build & run
 
-* `$ gradle clean build runAll`
-    - server side will finish building first
-    - give npm/webpack a little time to finish up
-* using browser, navigate to`localhost:3000`
-
-## Notes
-I have used the following guide to implement security
-http://www.svlada.com/jwt-token-authentication-with-spring-boot/.
+* `$ gradle clean build`
+  `$ java -jar build/libs/expense-splitter-0.0.1.jar`  
+* using browser, navigate to`localhost:8080`
 
 ## license
 [MIT](/LICENSE)
